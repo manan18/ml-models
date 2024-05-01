@@ -32,8 +32,9 @@ def predict():
 def predict1():
 
     data = request.get_json()
-    print(type(data))
+    # print(type(data))
     result = top_performer.predict1(data)
+    # print(result)
     return jsonify(result)
 # # X_new_data = {
 # #     'Percentage': [0.75, 0.60, 0.80],  # Example values for Percentage feature

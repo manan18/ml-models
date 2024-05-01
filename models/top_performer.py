@@ -228,6 +228,9 @@ def predict1(data):
 #     model = pickle.load(f)
 #     # Load the data
     X_new = pd.DataFrame(data)
+    # print(type(data))
+    # print(type(X_new_data))
+    # print(type(X_new))
     X_new_features = X_new.drop(columns=['Employee'])
     X_new_scaled = scaler.transform(X_new_features)
     X_new_reshaped = X_new_scaled.reshape((X_new_scaled.shape[0], 1, X_new_scaled.shape[1]))
@@ -235,4 +238,5 @@ def predict1(data):
     predictions_with_employee = np.hstack((predictions, np.array(data['Employee']).reshape(-1, 1)))
     sorted_predictions = predictions_with_employee[np.argsort(predictions_with_employee[:, 0])]
     top_performer = sorted_predictions[-1]
+    top_performer = top_performer.tolist()
     return  top_performer
