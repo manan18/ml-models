@@ -48,15 +48,15 @@ np.random.seed(42)  # For reproducibility
 # print(df)
 
 # # Assign weights to each attribute
-# weights = {
-#     'Price': 0.50,                 # Lower price is better, hence negative weight
-#     'DeliveryDays': 0.1,          # Fewer delivery days are better, hence negative weight
-#     'QualityRating': -0.15,         # Direct impact on customer satisfaction
-#     'FulfillmentRate': -0.10,       # Importance of fulfilling orders as promised
-#     'OnTimeDeliveryRate': -0.10,     # Critical for reliability
-#     'OrderAccuracyRate': -0.05,      # Direct impact on customer satisfaction
-#     'FinancialHealthScore': -0.05,  # Lower impact but important for long-term stability
-#     'ResponseTime': 0.05
+# #weights = {
+#     'Price': -0.60,                 # Lower price is better, hence negative weight
+#     'DeliveryDays': -0.15,          # Fewer delivery days are better, hence negative weight
+#     # 'QualityRating': -0.15,         # Direct impact on customer satisfaction
+#     # 'FulfillmentRate': -0.10,       # Importance of fulfilling orders as promised
+#     'OnTimeDeliveryRate': 0.10,     # Critical for reliability
+#     'OrderAccuracyRate': 0.05,      # Direct impact on customer satisfaction
+#     # 'FinancialHealthScore': -0.05,  # Lower impact but important for long-term stability
+#     'ResponseTime': -0.10
 # }
 
 # # Normalize the weights to ensure their sum is 1 (optional based on your scoring design)
@@ -144,11 +144,16 @@ def predict(data):
 
 
 
-
-
-
-
-
+# data = {
+#     "VendorID": ["Vendor101", "Vendor102", "Vendor103", "Vendor104"],
+#     "ProductID": ["Product1", "Product1", "Product2" , "Product2"],
+#     "Price": [110, 105 , 210, 190],
+#     "DeliveryDays": [4, 3, 7, 14],
+#     "OnTimeDeliveryRate": [92, 95, 90, 96],
+#     "OrderAccuracyRate": [94, 96, 100, 94],
+#     "ResponseTime": [20, 18, 12, 20]
+# }
+# print(predict(data))
 
 # # Example data for two vendors offering the same product "Product1"
 # new_data = {

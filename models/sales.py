@@ -133,6 +133,8 @@ def predict2(n_days_for_prediction):
     predict_period_dates = pd.date_range(last_date, periods=n_days_for_prediction+1, freq=us_bd)[1:]
     predictions_scaled = model.predict(X_scaled[-n_days_for_prediction:])
     predictions = scaler.inverse_transform(predictions_scaled.reshape(-1, 1))
-    print(predictions)
+    # print(predictions)
+    actual=df['Date'][-90:], y[-90:]
+    print(actual)
 
     return predictions.tolist(), predict_period_dates.tolist()

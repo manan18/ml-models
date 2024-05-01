@@ -12,6 +12,7 @@ app = Flask(__name__)
 @app.route('/predict-vendor', methods=['POST'])
 def predict():
     data = request.get_json()
+    # print(data)
     result = purchase_model.predict(data)
     return jsonify(result.to_dict(orient='records'))
 #     #new_data = {
