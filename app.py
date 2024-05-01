@@ -32,19 +32,20 @@ def predict():
 def predict1():
 
     data = request.get_json()
+    print(type(data))
     result = top_performer.predict1(data)
-    return jsonify(result.tolist())
-# X_new_data = {
-#     'Percentage': [0.75, 0.60, 0.80],  # Example values for Percentage feature
-#     'Duration': [5, 7, 4],              # Example values for Duration feature
-#     'Price': [200, 300, 250],           # Example values for Price feature
-#     'Employee': ['Alice', 'Bob', 'Charlie']  # Example values for Employee feature
-# }
-# data ka format
+    return jsonify(result)
+# # X_new_data = {
+# #     'Percentage': [0.75, 0.60, 0.80],  # Example values for Percentage feature
+# #     'Duration': [5, 7, 4],              # Example values for Duration feature
+# #     'Price': [200, 300, 250],           # Example values for Price feature
+# #     'Employee': ['Alice', 'Bob', 'Charlie']  # Example values for Employee feature
+# # }
+# # data ka format
 
 
 @app.route('/predict-sales', methods=['POST'])
 def predict2():
     data = request.get_json()
-    result = sales.predict2(data)
-    return jsonify(result.tolist())
+    result = sales.predict2(data.get('days'))
+    return jsonify(result)

@@ -88,32 +88,32 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # Load the dataset
-df = pd.read_csv('models/vendor_data.csv')
+# df = pd.read_csv('vendor_data.csv')
 
-# Assuming 'ReliabilityScore' is the target and all other columns except 'VendorID' and 'ProductID' are features
-X = df.drop(['VendorID', 'ProductID', 'ReliabilityScore'], axis=1)
-y = df['ReliabilityScore']
+# # Assuming 'ReliabilityScore' is the target and all other columns except 'VendorID' and 'ProductID' are features
+# X = df.drop(['VendorID', 'ProductID', 'ReliabilityScore'], axis=1)
+# y = df['ReliabilityScore']
 
-# Split the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# # Split the dataset into training and testing sets
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 
-# Initialize and train the RandomForestRegressor
-model = RandomForestRegressor(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
+# # Initialize and train the RandomForestRegressor
+# model = RandomForestRegressor(n_estimators=100, random_state=42)
+# model.fit(X_train, y_train)
 
-# Predict on the testing set
-y_pred = model.predict(X_test)
+# # Predict on the testing set
+# y_pred = model.predict(X_test)
 
 
-with open('vendor_model.pkl', 'wb') as f:
-    pickle.dump(model, f)
+# with open('vendor_model.pkl', 'wb') as f:
+#     pickle.dump(model, f)
 
-# Calculate the Mean Squared Error (MSE) for the model
-mse = mean_squared_error(y_test, y_pred)
-# print(f"Mean Squared Error: {mse}")
+# # Calculate the Mean Squared Error (MSE) for the model
+# mse = mean_squared_error(y_test, y_pred)
+# # print(f"Mean Squared Error: {mse}")
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -122,7 +122,7 @@ import seaborn as sns
 
 
 def predict(data):
-    model = pickle.load(open('models/vendor_model.pkl', 'rb'))
+    model = pickle.load(open('vendor_model.pkl', 'rb'))
     new_vendors_df = pd.DataFrame(data)
     X_new_vendors = new_vendors_df.drop(['VendorID', 'ProductID'], axis=1)
     new_vendor_scores = model.predict(X_new_vendors)
@@ -150,37 +150,37 @@ def predict(data):
 
 
 
-# Example data for two vendors offering the same product "Product1"
-new_data = {
-    'VendorID': ['Vendor101', 'Vendor102', 'Vendor103', 'Vendor104'],
-    "ProductID": ["Product1", "Product1", "Product2" , "Product2"],
-    "Price": [110, 105 , 210, 190],
-    "DeliveryDays": [4, 3, 7, 14],
-    "QualityRating": [5, 4, 3, 5],
-    "FulfillmentRate": [98, 97, 95, 96],
-    "OnTimeDeliveryRate": [92, 95, 90, 96],
-    "OrderAccuracyRate": [94, 96, 100, 94],
-    "FinancialHealthScore": [0.88, 0.90, 0.92, 0.95],
-    "ResponseTime": [20, 18, 12, 20]
-}
+# # Example data for two vendors offering the same product "Product1"
+# new_data = {
+#     'VendorID': ['Vendor101', 'Vendor102', 'Vendor103', 'Vendor104'],
+#     "ProductID": ["Product1", "Product1", "Product2" , "Product2"],
+#     "Price": [110, 105 , 210, 190],
+#     "DeliveryDays": [4, 3, 7, 14],
+#     "QualityRating": [5, 4, 3, 5],
+#     "FulfillmentRate": [98, 97, 95, 96],
+#     "OnTimeDeliveryRate": [92, 95, 90, 96],
+#     "OrderAccuracyRate": [94, 96, 100, 94],
+#     "FinancialHealthScore": [0.88, 0.90, 0.92, 0.95],
+#     "ResponseTime": [20, 18, 12, 20]
+# }
 
-# Create a DataFrame with this new data
-new_vendors_df = pd.DataFrame(new_data)
+# # Create a DataFrame with this new data
+# new_vendors_df = pd.DataFrame(new_data)
 
-# Assume any preprocessing steps done during training need to be applied here too
+# # Assume any preprocessing steps done during training need to be applied here too
 
-# Prepare the feature matrix from the new DataFrame, omitting identifiers and non-feature columns
-X_new_vendors = new_vendors_df.drop(['VendorID', 'ProductID'], axis=1)
+# # Prepare the feature matrix from the new DataFrame, omitting identifiers and non-feature columns
+# X_new_vendors = new_vendors_df.drop(['VendorID', 'ProductID'], axis=1)
 
-# Predict reliability scores using the trained model
-new_vendor_scores = model.predict(X_new_vendors)
+# # Predict reliability scores using the trained model
+# new_vendor_scores = model.predict(X_new_vendors)
 
-# Add these scores to the new DataFrame for visibility
-new_vendors_df['PredictedReliabilityScore'] = new_vendor_scores
-# print(new_vendors_df[['VendorID', 'ProductID', 'PredictedReliabilityScore']])
+# # Add these scores to the new DataFrame for visibility
+# new_vendors_df['PredictedReliabilityScore'] = new_vendor_scores
+# # print(new_vendors_df[['VendorID', 'ProductID', 'PredictedReliabilityScore']])
 
-# Group by ProductID and find the entry with the maximum PredictedReliabilityScore for each product
-best_vendors = new_vendors_df.loc[new_vendors_df.groupby('ProductID')['PredictedReliabilityScore'].idxmax()]
+# # Group by ProductID and find the entry with the maximum PredictedReliabilityScore for each product
+# best_vendors = new_vendors_df.loc[new_vendors_df.groupby('ProductID')['PredictedReliabilityScore'].idxmax()]
 
 # This will return a DataFrame with each row being the best vendor for each ProductID
 # print(best_vendors[['ProductID', 'VendorID', 'PredictedReliabilityScore']])
